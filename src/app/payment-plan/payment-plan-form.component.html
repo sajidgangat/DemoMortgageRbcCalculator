@@ -1,0 +1,119 @@
+<div class="row form-horizontal">
+    <form name="form" #form="ngForm">
+        <div style="display: flex; flex-direction: row; justify-content: space-around;">
+            <div class="col-md-6">
+                <h3>Payment Plan</h3>
+
+                <div class="control-group">
+                    <label class="control-label">Mortgage Amount</label>
+                    <div class="controls">
+                        <input type="text" size="7" [(ngModel)]="planForm.mortageAmount" name="price" numbersOnly
+                            required />
+                        <div *ngIf="!planForm.mortageAmount && isSubmit" style="color:red">
+                            Please add mortage amount
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Interest Rate</label>
+                    <div class="controls">
+                        <input type="text" size="4" [(ngModel)]="planForm.interestRate" name="interestRate" numbersOnly
+                            required />
+                        <div *ngIf="!planForm.interestRate && isSubmit" style="color:red">
+                            Please add intrest rate
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Period</label>
+                    <div class="controls">
+                        <select required [(ngModel)]="planForm.period" class="form-control" name="period">
+                            <option value="">Select Period</option>
+                            <option *ngFor="let rate of interestList">{{rate}}</option>
+                        </select>
+                        <div *ngIf="!planForm.period && isSubmit" style="color:red">
+                            Please select period
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Frequency</label>
+                    <div class="controls">
+                        <select required [(ngModel)]="planForm.paymentFrequency" class="form-control"
+                            name="paymentFrequency">
+                            <option value="">Select Payment Frequency</option>
+                            <option *ngFor="let frequency of frequencyList">{{frequency}}</option>
+                        </select>
+                        <div *ngIf="!planForm.paymentFrequency && isSubmit" style="color:red">
+                            Please select payment frequency
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Term</label>
+                    <div class="controls">
+                        <select required [(ngModel)]="planForm.term" class="form-control" name="term">
+                            <option value="">Select Term</option>
+                            <option *ngFor="let term of termList">{{term}}</option>
+                        </select>
+                        <div *ngIf="!planForm.term && isSubmit" style="color:red">
+                            Please select terms
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+                <!-- <p>Please not that this Mortgage Calculator is only to give you a idea on what loan payments will cost if need to find out current Interest Rate please feel free to contact bank.  </p> -->
+            </div>
+            <div class="col-md-6">
+                <h3>Pre Payment</h3>
+
+                <div class="control-group">
+                    <label class="control-label">Pre Payment Amount</label>
+                    <div class="controls">
+                        <input required type="text" size="7" [(ngModel)]="planForm.prePaymentAmount" name="price"
+                            numbersOnly />
+                        <div *ngIf="!planForm.prePaymentAmount && isSubmit" style="color:red">
+                            Please add pre payment amount
+                        </div>
+                        <div *ngIf="showError && isSubmit" style="color:red">
+                            Pre payment amount can not be more then mortgage amount
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">PrePayment Frequency</label>
+                    <div class="controls">
+                        <select required class="form-control" [(ngModel)]="planForm.prePayemntFrequency"
+                            name="prePayemntFrequency">
+                            <option value="">Select PrePayment Frequency</option>
+                            <option *ngFor="let prepaymentFrequency of prePaymentList">{{prepaymentFrequency}}</option>
+                        </select>
+                        <div *ngIf="!planForm.prePayemntFrequency && isSubmit" style="color:red">
+                            Please select pre payment frequancy
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Start With Payment</label>
+                    <div class="controls">
+                        <input required type="text" size="4" [(ngModel)]="planForm.startWithPayment" name="term"
+                            numbersOnly />
+                        <div *ngIf="!planForm.startWithPayment && isSubmit" style="color:red">
+                            Please select start with payment
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input [disabled]="!form.valid" (click)="submit()" type="button" class="btn btn-primary btn-large"
+                    value="Calculate" name="cmdCalc" />
+
+            </div>
+        </div>
+    </form>
+</div>
